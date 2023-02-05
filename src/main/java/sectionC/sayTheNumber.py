@@ -7,22 +7,52 @@ def say_the_number(num):
                 50: "fifty", 60: "sixty", 70: "seventy", 80: "eighty",
                 90: "ninety"}
 
-    if num < 0:
-        return "minus " + say_the_number(-num)
-    elif num < 21:
-        return num_dict[num]
-    elif num < 100:
-        return num_dict[num // 10 * 10] + " " + num_dict[num % 10]
-    elif num < 1000:
-        return num_dict[num // 100] + " hundred and " + say_the_number(num % 100)
-    elif num < 1000000:
-        return say_the_number(num // 1000) + " thousand, " + say_the_number(num % 1000)
-    elif num < 1000000000:
-        return say_the_number(num // 1000000) + " million, " + say_the_number(num % 1000000)
-    elif num < 1000000000000:
-        return say_the_number(num // 1000000000) + " billion, " + say_the_number(num % 1000000000)
-    else:
-        return say_the_number(num // 10000000000000) + " trillion, " + say_the_number(num % 1000000000000)
+    # if statement for numbers under 21
+    if num < 21:
+        return num_dict[num].capitalize()
+
+    # if statement for numbers under 100
+    if num < 100:
+        if num % 10 == 0:
+            return num_dict[num]
+        else:
+            return num_dict[num // 10 * 10] + " " + num_dict[num % 10]
+
+    # if statement for numbers under a thousand
+    if num < 1000:
+        if num % 100 == 0:
+            return num_dict[num // 100] + ' hundred '.capitalize()
+        else:
+            return num_dict[num // 100] + ' hundred and ' + say_the_number(num % 100).capitalize()
+
+    # if statement for numbers under a million
+    if num < 1000000:
+        if num % 1000 == 0:
+            return say_the_number(num // 1000) + ' thousand, '.capitalize()
+        else:
+            return say_the_number(num // 1000) + ' thousand and ' + say_the_number(num % 1000).capitalize()
+
+    # if statement for numbers under a billion
+    if num < 1000000000:
+        if num % 1000000 == 0:
+            return say_the_number(num // 1000000) + ' million '.capitalize()
+        else:
+            return say_the_number(num // 1000000) + ' million, ' + say_the_number(num % 1000000).capitalize() + '.'
+
+    # if statement for numbers under a trillion
+    if num < 1000000000000:
+        if num % 1000000000 == 0:
+            return say_the_number(num // 1000000000) + ' billion '.capitalize()
+        else:
+            return say_the_number(num // 1000000000) + ' billion, ' + say_the_number(num % 1000000000).capitalize()
+
+    # if statement for numbers that are a trillion
+    if num > 1000000000000:
+        if num % 1000000000000 == 0:
+            return say_the_number(num // 1000000000000) + ' trillion '.capitalize()
+        else:
+            return say_the_number(num // 1000000000000) + ' trillion, ' + say_the_number(
+                num % 1000000000000).capitalize() + "."
 
 
 print(say_the_number(0))
